@@ -42,7 +42,7 @@ manipulated = 'manipulated'
 non_manipulated = 'non_manipulated'
 
 
-ELAdateSet = helper.creatELADataSet(dataSetPath)
+X, Y, Xp, Yp = helper.creatELADataSet(dataSetPath)
 
 
 X_train, X_val, Y_train, Y_val = train_test_split(Xp, Yp, test_size = 0.2, random_state=5)
