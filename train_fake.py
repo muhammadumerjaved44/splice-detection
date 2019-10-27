@@ -72,20 +72,20 @@ model.add(Dense(2, activation = "softmax"))
   
 model.summary()
 
-#optimizer = RMSprop(lr=0.0005, rho=0.9, epsilon=1e-08, decay=0.0)
-optimizer = Adam(lr=0.0001, beta_1=0.9, beta_2=0.999)
+optimizer = RMSprop(lr=0.0005, rho=0.9, epsilon=1e-08, decay=0.0)
+#optimizer = Adam(lr=0.005, beta_1=0.9, beta_2=0.999)
 model.compile(optimizer = optimizer , loss = "categorical_crossentropy", metrics=["accuracy"])
 
-early_stopping = EarlyStopping(monitor='val_acc',
-                              min_delta=0,
-                              patience=2,
-                              verbose=0, mode='auto')
+#early_stopping = EarlyStopping(monitor='val_acc',
+#                              min_delta=0,
+#                              patience=2,
+#                              verbose=0, mode='auto')
 
 epochs = 50
 batch_size = 100
-
+#callbacks=[early_stopping]
 history = model.fit(X_train, Y_train, batch_size = batch_size, epochs = epochs, 
-          validation_data = (X_val, Y_val), verbose = 2, callbacks=[early_stopping])
+          validation_data = (X_val, Y_val), verbose = 2, shuffle=True)
 
 # Plot the loss and accuracy curves for training and validation 
 fig, ax = plt.subplots(2,1)
