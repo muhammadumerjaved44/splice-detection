@@ -173,3 +173,27 @@ def convert_to_ela_image(path, quality):
     ela_im = ImageEnhance.Brightness(ela_im).enhance(scale)
     
     return ela_im
+
+def seprateImagesInClasses(baseDataSetPath, dataSetPath, subset):
+    
+    assert subset in ["train", "val"]
+    
+    base_dataset_dir = os.path.join(baseDataSetPath, subset)
+    data_set_path_dir = dataSetPath
+    allFilePath = os.path.join(base_dataset_dir,'*.jpg')
+    
+    dataset = Splice()
+    dataset.load_dataSet(baseDataSetPath, subset)
+    dataset.prepare()
+    
+    files = glob.glob(allFilePath)
+    tempFiles = []
+    for image in dataset.image_info:
+        temp_path = image.get('path')
+        tempFiles.append(temp_path)
+        
+    for file in files:
+        if file in tempFiles:
+            shutil.copy(file, os.path.join(data_set_path_dir, 'manipulated'))
+        else:
+            shutil.copy(file, os.path.join(data_set_path_dir, 'non_manipulated'))
