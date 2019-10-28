@@ -200,6 +200,7 @@ def seprateImagesInClasses(baseDataSetPath, dataSetPath, subset):
             
 def creatELADataSet(dataSetPath):
     dataSetPath = os.path.join(root_dir, 'dataset2')
+#    dataSetPath = os.path.join(root_dir, 'dataset2')
     classes = ['manipulated', 'non_manipulated']
     X = []
     Y = []
@@ -210,7 +211,7 @@ def creatELADataSet(dataSetPath):
        Y.extend([i]*len(images))
     
     for x in X:
-        Xp.append(array(convert_to_ela_image(x, 90).resize((128, 128))).flatten() / 255.0)
+        Xp.append(np.array(convert_to_ela_image(x, 90).resize((128, 128))).flatten() / 255.0)
     Xp = np.array(Xp)
     Xp = Xp.reshape(-1, 128, 128, 3)
     Yp = to_categorical(Y, 2)
