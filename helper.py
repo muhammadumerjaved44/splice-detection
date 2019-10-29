@@ -199,7 +199,7 @@ def seprateImagesInClasses(baseDataSetPath, dataSetPath, subset):
             shutil.copy(file, os.path.join(data_set_path_dir, 'non_manipulated'))
             
 def creatELADataSet(dataSetPath):
-    dataSetPath = os.path.join(root_dir, 'dataset2')
+#    dataSetPath = os.path.join(root_dir, 'dataset2')
 #    dataSetPath = os.path.join(root_dir, 'dataset2')
     classes = ['manipulated', 'non_manipulated']
     X = []
