@@ -9,4 +9,6 @@ dataset/
 
 logs/
 
+*.zip
+
 dataset2/
