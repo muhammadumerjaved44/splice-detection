@@ -5,7 +5,8 @@ import numpy as np
 import matplotlib.pyplot as plt
 import matplotlib.image as mpimg
 import seaborn as sns
-import helper
+import pickle
+from helper import seprateImagesInClasses, creatELADataSet
 import shutil
 import glob
 
@@ -32,7 +33,16 @@ from pylab import *
 import re
 from PIL import Image, ImageChops, ImageEnhance
 
-root_dir = os.path.abspath("/home/g1g/Desktop/splice-detection")
+flag = 'linux'
+
+if 'colab' == flag:
+  root_dir = '/content/drive/My Drive/Colab_Notebooks'
+elif 'linux' == flag:
+  root_dir = os.path.abspath("/home/g1g/Desktop/splice-detection")
+else:
+  root_dir = os.path.abspath(r"d:/home/g1g/Desktop/splice-detection")
+
+#root_dir = os.path.abspath("/home/g1g/Desktop/splice-detection")
 
 baseDataSetPath = os.path.join(root_dir, 'dataset')
 dataSetPath = os.path.join(root_dir, 'dataset2')
@@ -42,7 +52,16 @@ manipulated = 'manipulated'
 non_manipulated = 'non_manipulated'
 
 
-X, Y, Xp, Yp = helper.creatELADataSet(dataSetPath)
+#X, Y, Xp, Yp = creatELADataSet(dataSetPath)
+
+# save pickle
+#with open('ELAdataset.pickle', 'wb') as f:
+#    pickle.dump((X, Y, Xp, Yp), f)
+
+# load pickl()
+
+with open('ELAdataset.pickle', 'rb') as f:
+    X, Y, Xp, Yp = pickle.load(f)
 
 
 X_train, X_val, Y_train, Y_val = train_test_split(Xp, Yp, test_size = 0.2, random_state=5)
@@ -72,8 +91,8 @@ model.add(Dense(2, activation = "softmax"))
   
 model.summary()
 
-optimizer = RMSprop(lr=0.0005, rho=0.9, epsilon=1e-08, decay=0.0)
-#optimizer = Adam(lr=0.005, beta_1=0.9, beta_2=0.999)
+#optimizer = RMSprop(lr=0.0005, rho=0.9, epsilon=1e-08, decay=0.0)
+optimizer = Adam(lr=0.0005, beta_1=0.9, beta_2=0.999)
 model.compile(optimizer = optimizer , loss = "categorical_crossentropy", metrics=["accuracy"])
 
 #early_stopping = EarlyStopping(monitor='val_acc',
