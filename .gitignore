@@ -12,3 +12,5 @@ logs/
 *.zip
 
 dataset2/
+
+ELAdataset.pickle

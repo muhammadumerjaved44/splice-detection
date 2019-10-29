@@ -36,7 +36,11 @@ import skimage.draw
 
 # Root directory of the project
 #ROOT_DIR = os.path.abspath("../../")
-ROOT_DIR = '/home/g1g/Desktop/Mask_RCNN/balloon_project'
+flag = 'linux'
+if 'linux' == flag:
+    ROOT_DIR = '/home/g1g/Desktop/Mask_RCNN/balloon_project'
+else:
+    ROOT_DIR = r'C:\Users\Student\Desktop\splice-detection'
 # Import Mask RCNN
 sys.path.append(ROOT_DIR)  # To find local version of the library
 from mrcnn.config import Config
@@ -170,7 +174,7 @@ class BalloonDataset(utils.Dataset):
     def image_reference(self, image_id):
         """Return the path of the image."""
         info = self.image_info[image_id]
-        if info["source"] == "balloon":
+        if info["source"] == "manipulated":
             return info["path"]
         else:
             super(self.__class__, self).image_reference(image_id)
